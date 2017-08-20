@@ -11,14 +11,11 @@ import java.util.List;
 
 public class DefaultBootConfig extends BootConfig {
 
-
-    @Override
-    public void routeConfig(RouteManager manager) {
-//        default nothing
+    public void otherConfig() {
+        basePackage="";
     }
 
-    @Override
-    public void otherConfig() {
-        this.basePackage="";
+    public void routeConfig(RouteManager manager) {
+
     }
 }
