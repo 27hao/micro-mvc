@@ -62,7 +62,6 @@ public class ClasspathPackageScanner {
 
         // get file path
         URL url = cl.getResource(splashPath);
-        System.out.println(url.getFile());
         String filePath = StringUtil.getRootPath(url);
 
         // Get classes in that package.
@@ -72,11 +71,11 @@ public class ClasspathPackageScanner {
         List<String> names = null; // contains the name of the class file. e.g., Apple.class will be stored as "Apple"
         if (isJarFile(filePath)) {
             // jar file
-            System.out.println(filePath+"是一个JAR包");
+//            System.out.println(filePath+"是一个JAR包");
             names = readFromJarFile(filePath, splashPath);
         } else {
             // directory
-            System.out.println(filePath+"是一个目录");
+//            System.out.println(filePath+"是一个目录");
             names = readFromDirectory(filePath);
         }
         for (String name : names) {
@@ -94,11 +93,6 @@ public class ClasspathPackageScanner {
                 doScan(basePackage + "." + name, nameList);
             }
         }
-
-        for (String n : nameList) {
-            System.out.println("找到"+ n);
-        }
-
 
         return nameList;
     }
@@ -127,10 +121,8 @@ public class ClasspathPackageScanner {
             if (name.startsWith(splashedPackageName) && isClassFile(name)) {
                 nameList.add(name);
             }
-
             entry = jarIn.getNextJarEntry();
         }
-
         return nameList;
     }
 

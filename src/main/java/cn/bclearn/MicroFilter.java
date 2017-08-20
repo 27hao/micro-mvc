@@ -20,12 +20,15 @@ public class MicroFilter implements Filter{
     private ControllerAdapter adapter=null;
     public void init(FilterConfig filterConfig) throws ServletException {
         String configClassName=filterConfig.getInitParameter("config-class");
+
         routeMapping=new RouteMapping();
         if(configClassName!=null) {
             try {
                 Class clazz = Class.forName(configClassName);
                 bootConfig = (BootConfig) clazz.newInstance();
                 bootConfig.init();
+                Logger.getLogger(MicroFilter.class.getName()).
+                        info("---已加载自定义配置类:"+configClassName);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
@@ -36,6 +39,8 @@ public class MicroFilter implements Filter{
         }else {
             bootConfig=new DefaultBootConfig();
             bootConfig.init();
+            Logger.getLogger(MicroFilter.class.getName()).
+                    info("---已加载默认配置类:"+bootConfig.getClass().getName());
         }
 
     }
@@ -44,11 +49,15 @@ public class MicroFilter implements Filter{
         HttpServletRequest servletRequest = (HttpServletRequest) request;
         HttpServletResponse servletResponse = (HttpServletResponse) response;
         String uri=servletRequest.getRequestURI();
-        System.out.println("得到请求:"+uri);
+        Logger.getLogger(MicroFilter.class.getName()).
+                info("---得到请求:"+uri);
         Route route=routeMapping.findRoute(uri,servletRequest,servletResponse);
-        System.out.println(route);
-        adapter=new ControllerAdapter();
-        adapter.invoke(route);
+        if(route!=null) {
+            adapter = new ControllerAdapter();
+            adapter.invoke(route);
+        }else {
+            chain.doFilter(request,response);
+        }
     }
 
     public void destroy() {

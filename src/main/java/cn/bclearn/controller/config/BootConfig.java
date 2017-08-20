@@ -1,8 +1,8 @@
 package cn.bclearn.controller.config;
 
+import cn.bclearn.controller.Route;
 import cn.bclearn.controller.RouteManager;
 import cn.bclearn.controller.annotation.Controller;
-import cn.bclearn.controller.annotation.Route;
 import cn.bclearn.util.ClasspathPackageScanner;
 
 import java.io.IOException;
@@ -10,12 +10,8 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.logging.Logger;
 
-public abstract class BootConfig {
+public abstract class BootConfig implements Config{
     protected String basePackage=null;
-
-    abstract void routeConfig(RouteManager manager);
-
-    abstract void otherConfig();
 
     private void scanAndAdd(RouteManager manager){
         ClasspathPackageScanner scanner=new ClasspathPackageScanner(this.basePackage);
@@ -27,11 +23,16 @@ public abstract class BootConfig {
                 if(clazz.isAnnotationPresent(Controller.class)){
                     Method[] methods= clazz.getMethods();
                     for (Method method:methods){
-                        if(method.isAnnotationPresent(Route.class)){
+                        if(method.isAnnotationPresent(cn.bclearn.controller.annotation.Route.class)){
                             String uri=((Controller)clazz.getAnnotation(Controller.class)).value()+
-                                    method.getAnnotation(Route.class).value();
+                                    method.getAnnotation(cn.bclearn.controller.annotation.Route.class).value();
+                            Route route=new Route();
+                            route.setUri(uri);
+                            route.setCotroller(clazz);
+                            route.setMethod(method);
                             manager.addRoute(uri,method.getName(),clazz);
-                            System.out.println("添加了路由"+uri+" "+method.getName()+" "+clazz.getSimpleName());
+                            Logger.getLogger(BootConfig.class.getName()).
+                                    info("---通过注解添加了路由:"+route);
                         }
                     }
                 }

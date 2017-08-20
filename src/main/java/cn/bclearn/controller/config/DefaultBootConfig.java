@@ -13,12 +13,12 @@ public class DefaultBootConfig extends BootConfig {
 
 
     @Override
-    void routeConfig(RouteManager manager) {
+    public void routeConfig(RouteManager manager) {
 //        default nothing
     }
 
     @Override
-    void otherConfig() {
+    public void otherConfig() {
         this.basePackage="";
     }
 }
