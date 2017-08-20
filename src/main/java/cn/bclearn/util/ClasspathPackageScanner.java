@@ -105,7 +105,9 @@ public class ClasspathPackageScanner {
      */
     private String toFullyQualifiedName(String shortName, String basePackage) {
         StringBuilder sb = new StringBuilder(basePackage);
-        sb.append('.');
+        if(!"".equals(basePackage)) {
+            sb.append('.');
+        }
         sb.append(StringUtil.trimExtension(shortName));
 
         return sb.toString();

@@ -8,6 +8,7 @@ import cn.bclearn.util.ClasspathPackageScanner;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.logging.Logger;
 
 public abstract class BootConfig {
     protected String basePackage=null;
@@ -30,7 +31,7 @@ public abstract class BootConfig {
                             String uri=((Controller)clazz.getAnnotation(Controller.class)).value()+
                                     method.getAnnotation(Route.class).value();
                             manager.addRoute(uri,method.getName(),clazz);
-
+                            System.out.println("添加了路由"+uri+" "+method.getName()+" "+clazz.getSimpleName());
                         }
                     }
                 }

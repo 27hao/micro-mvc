@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="micro-mvc:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/micro_mvc_jar</output-path>
+    <root id="archive" name="micro-mvc.jar">
+      <element id="module-output" name="micro-mvc" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

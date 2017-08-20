@@ -1,16 +1,12 @@
 package cn.bclearn;
 
-import cn.bclearn.controller.Route;
 import cn.bclearn.controller.RouteManager;
+import cn.bclearn.model.annotation.RequestParam;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.lang.annotation.Annotation;
 
 /**
  * Unit test for simple App.
@@ -39,25 +35,14 @@ public class AppTest
     /**
      * Rigourous Test :-)
      */
-    public int test(String test,int i,String test2,int j,AppTest t){
+    public int test(@RequestParam("/test") String test, int i, String test2, int j, AppTest t){
         return 1;
     }
     public void testApp() throws NoSuchMethodException {
         RouteManager manager=RouteManager.getInstance();
         manager.addRoute("/test","test",AppTest.class);
-
-        Class<?>pType  = manager.getRoutes().get(0).getMethod().getReturnType();
-        //获取方法的所有的参数的原始类型。
-        Class[] gpType = manager.getRoutes().get(0).getMethod().getParameterTypes();
-        for(Class t:gpType){
-            System.out.println(t.getTypeName());
-            try {
-                t.
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
+                //获取方法的所有的参数的原始类型。
+        Annotation[][] annotations= manager.getRoutes().get(0).getMethod().getParameterAnnotations();
+        System.out.println(annotations);
     }
 }

@@ -3,6 +3,7 @@ package cn.bclearn.controller;
 import cn.bclearn.model.MicroRequest;
 import cn.bclearn.model.MicroResponse;
 import cn.bclearn.model.annotation.RequestParam;
+import cn.bclearn.model.annotation.RequestParamAnnotationHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,12 +36,13 @@ public class RouteMapping {
             Class<?>[] params = route.getMethod().getParameterTypes();    // params 该路由中方法的所有参数
             args = new Object[params.length];
             boolean flag = true;
-
+            Map<Integer,String> annotation=new RequestParamAnnotationHandler(route.getMethod()).getRequestParamValueAndIndex();
             for (int i = 0; i < params.length; i++) {
-                if (params[i].isAnnotationPresent(RequestParam.class)) {
-                    String key = ((RequestParam) params[i].getAnnotation(RequestParam.class)).value();
-                    if (reqParams.containsKey(key)) {
-                        args[i] = reqParams.get(key);
+                if (annotation.containsKey(i)&&reqParams.containsKey(annotation.get(i))) {
+                    if(params[i].isArray()) {
+                        args[i] = reqParams.get(annotation.get(i));
+                    }else {
+                        args[i]=reqParams.get(annotation.get(i))[0];
                     }
                 } else if (params[i].getName().equals(MicroRequest.class.getName())) {
                     args[i] = this.microRequest;
@@ -62,7 +64,9 @@ public class RouteMapping {
         this.microRequest=new MicroRequest(request);
         this.microResponse=new MicroResponse(response);
         List<Route> routes=findRoutes(uri);
+        System.out.println(routes.get(0));
         if(routes!=null) {
+
             argsHandler(routes);
 
             int index = 0;

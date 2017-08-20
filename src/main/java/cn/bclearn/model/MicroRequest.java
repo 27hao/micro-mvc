@@ -25,4 +25,5 @@ public class MicroRequest {
     public Map<String,String[]> getAllParam(){
         return request.getParameterMap();
     }
+
 }

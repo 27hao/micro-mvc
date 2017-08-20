@@ -10,7 +10,10 @@ public class ControllerAdapter {
         this.route=route;
     }
 
-   public void invoke(){
+    public ControllerAdapter(){
+
+    }
+   public void invoke(Route route){
        Method method=route.getMethod();
         Object controller= null;
         try {
