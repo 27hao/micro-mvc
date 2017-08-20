@@ -82,7 +82,11 @@ public class ClasspathPackageScanner {
         for (String name : names) {
             if (isClassFile(name)) {
                 //nameList.add(basePackage + "." + StringUtil.trimExtension(name));
-                nameList.add(toFullyQualifiedName(name, basePackage));
+                String temp=toFullyQualifiedName(name, basePackage);
+                if(temp.startsWith(".")){
+                    temp=temp.substring(1,temp.length());
+                }
+                nameList.add(temp);
             } else {
                 // this is a directory
                 // check this directory for more classes
@@ -105,9 +109,7 @@ public class ClasspathPackageScanner {
      */
     private String toFullyQualifiedName(String shortName, String basePackage) {
         StringBuilder sb = new StringBuilder(basePackage);
-        if(!"".equals(basePackage)) {
-            sb.append('.');
-        }
+        sb.append('.');
         sb.append(StringUtil.trimExtension(shortName));
 
         return sb.toString();
