@@ -6,6 +6,15 @@ public class Route {
     private String uri;
     private Method method;
     private Class cotroller;
+    private Object[] args;
+
+    public Object[] getArgs() {
+        return args;
+    }
+
+    public void setArgs(Object[] args) {
+        this.args = args;
+    }
 
     public String getUri() {
         return uri;

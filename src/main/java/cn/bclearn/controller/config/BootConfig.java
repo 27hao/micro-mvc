@@ -27,7 +27,10 @@ public abstract class BootConfig {
                     Method[] methods= clazz.getMethods();
                     for (Method method:methods){
                         if(method.isAnnotationPresent(Route.class)){
-                            manager.addRoute(method.getAnnotation(Route.class).value(),method.getName(),clazz);
+                            String uri=((Controller)clazz.getAnnotation(Controller.class)).value()+
+                                    method.getAnnotation(Route.class).value();
+                            manager.addRoute(uri,method.getName(),clazz);
+
                         }
                     }
                 }
@@ -40,6 +43,7 @@ public abstract class BootConfig {
     }
     public final void init(){
         RouteManager routeManager=routeManager=RouteManager.getInstance();
+        otherConfig();
         routeConfig(routeManager);
         if(basePackage!=null) {
             scanAndAdd(routeManager);
