@@ -72,6 +72,14 @@ public class MicroFilter implements Filter{
         }
     }
 
+    /**
+     *
+     * 处理uri
+     * 去掉多余的'/'
+     * 去掉appPath
+     * @param request 从request中得到uri
+     * @return 返回处理后的uri
+     */
     private String getRealUri(HttpServletRequest request) {
         String uri=request.getRequestURI();
         String appPath=request.getContextPath();
@@ -86,6 +94,9 @@ public class MicroFilter implements Filter{
 
         realUri= new String(temp).trim();
         try {
+            /**
+             * 尝试转化为utf-8编码
+             */
             realUri=URLDecoder.decode(realUri,Constants.DEFAULT_CHARACTER);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
