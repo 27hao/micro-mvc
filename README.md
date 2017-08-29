@@ -1,2 +1,2 @@
 # micro-mvc
-A Javaee MVC Framework
+A JavaEE MVC Framework
