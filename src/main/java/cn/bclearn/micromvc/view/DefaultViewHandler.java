@@ -21,7 +21,7 @@ public class DefaultViewHandler implements ViewHandler {
         if(result.getClass().getName().equals(String.class.getName())){
             request.getRequestDispatcher(prefix+result+suffix).forward(request,response);
         }else{
-            response.setContentType("text/json;charset=utf-8");
+            response.setContentType("application/json;charset=utf-8");
             Gson gson=new Gson();
             PrintWriter writer=response.getWriter();
             writer.print(gson.toJson(result));
