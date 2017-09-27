@@ -5,6 +5,8 @@ import cn.bclearn.micromvc.controller.Route;
 import cn.bclearn.micromvc.controller.RouteMapping;
 import cn.bclearn.micromvc.controller.config.BootConfig;
 import cn.bclearn.micromvc.controller.config.DefaultBootConfig;
+import cn.bclearn.micromvc.model.validate.ErrorMessage;
+import cn.bclearn.micromvc.model.validate.ValidateAnnotationHandler;
 import cn.bclearn.micromvc.util.Constants;
 import cn.bclearn.micromvc.view.DefaultViewHandler;
 import cn.bclearn.micromvc.view.ViewHandler;
@@ -62,10 +64,35 @@ public class MicroFilter implements Filter{
         Logger.getLogger(MicroFilter.class.getName()).
                 info("---得到请求:"+uri);
         Route route=routeMapping.findRoute(uri,servletRequest,servletResponse);
+        System.out.println("adpter:"+adapter.hashCode());
+        System.out.println("view:"+viewHandler.hashCode());
         if(route!=null) {
+            /**
+             * 验证
+             */
+            ErrorMessage errorMessage=new ValidateAnnotationHandler().validate(route);
+            if(errorMessage.size()>0){
+                String ref=servletRequest.getHeader("Referer");
+                if(ref!=null) {
+                    servletRequest.setAttribute("micro-error",errorMessage);
+                    String[] referer=ref.split("/");
+                    servletRequest.getRequestDispatcher(referer[referer.length - 1]).forward(servletRequest, servletResponse);
+                }else {
+                    servletResponse.setStatus(500);
+                    chain.doFilter(servletRequest,servletResponse);
+                }
+            }
+            /**
+             * 执行Controller
+             */
             Object result=adapter.invoke(route);
+            /**
+             * 视图解析
+             */
             if(result!=null) {
                 viewHandler.resolve(result, servletRequest, servletResponse);
+            }else {
+                chain.doFilter(request,response);
             }
         }else {
             chain.doFilter(request,response);
