@@ -169,8 +169,8 @@
       <file leaf-file-name="MicroFilter.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/bclearn/micromvc/MicroFilter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="54" column="0" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+            <state relative-caret-position="159">
+              <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -677,7 +677,7 @@
       <workItem from="1503374192714" duration="8022000" />
       <workItem from="1503544532501" duration="341000" />
       <workItem from="1503993678955" duration="2087000" />
-      <workItem from="1552466456058" duration="554000" />
+      <workItem from="1552466456058" duration="581000" />
     </task>
     <task id="LOCAL-00001" summary="项目初始化">
       <created>1503060652319</created>
@@ -763,7 +763,14 @@
       <option name="project" value="LOCAL" />
       <updated>1552466766851</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="remove some useless files">
+      <created>1552467032207</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1552467032207</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -799,7 +806,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77293000" />
+    <option name="totallyTimeSpent" value="77320000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1286,8 +1293,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/bclearn/micromvc/MicroFilter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="54" column="0" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+        <state relative-caret-position="159">
+          <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
           <folding />
         </state>
       </provider>
